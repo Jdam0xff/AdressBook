@@ -8,43 +8,53 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace AdressBook
 {
 	public partial class Address_Book : Form
 	{
-		#region Variables
+		#region Veriables
 
-		static string line;
-		static string emptyList = "List is empty...";
-		static string addressBook = "AdressBook.txt";
-
-		List<string> allInfo = new List<string>();
+		List<Person> contactsList = new List<Person>();
 
 		#endregion
 
-
 		public Address_Book()
 		{
-			InitializeComponent();
+				InitializeComponent();
 		}
 
 		private void Address_Book_Load(object sender, EventArgs e)
 		{
-			if (!File.Exists(addressBook))
+			string pathFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+			if(!Directory.Exists(pathFolder + "\\Address Book Data"))
+				Directory.CreateDirectory(pathFolder + "\\Address Book Data");
+			if (!File.Exists(pathFolder + "\\Address Book Data\\DataBase.txt"))
 			{
-				ReadTxt();
+				
 			}
-			else 
-			MessageBox.Show("No address book in your folder! \n New address book create if you click ok.");
-			
-		} 
-
-		private void addListItem(string value)
-		{
-			contactList.Items.Add(value);
 		}
 
+		class Person
+		{
+			public string FullName
+			{
+				get;
+				set;
+			}
+
+			public string Address
+			{
+				get;
+				set;
+			}
+			public string PhoneNumber
+			{
+				get;
+				set;
+			}
+		}
 
 		private void textBox1_TextChanged(object sender, EventArgs e)
 		{
@@ -66,88 +76,88 @@ namespace AdressBook
 
 		}
 
-
-
 		private void button1_Click_1(object sender, EventArgs e)
 		{
-			
-				allInfo.Add(FullName.Text);
-				addListItem(FullName.Text);
+			Person per = new Person();
+			per.FullName = FullName.Text;
+			per.Address = Address.Text;
+			per.PhoneNumber = Phone.Text;
+			if (FullName.Text == "")  per.FullName = "empty"; 
+			if(Address.Text == "") per.Address = "empty";
+			if (Phone.Text == "") per.PhoneNumber = "empty";
 
-				allInfo.Add(Address.Text);
+			contactsList.Add(per);
 
-				allInfo.Add(Phone.Text);
+			ContactListWindow.Items.Add(per.FullName);
 
-			if (string.IsNullOrEmpty(FullName.Text)) FullName.Text = "empty.";
-			if (string.IsNullOrEmpty(Address.Text)) Address.Text = "empty.";
-			if (string.IsNullOrEmpty(Phone.Text)) Phone.Text = "empty.";
+			// Czyszczenie po dodaniu
+			Clear();
+			CountUpdate();
+		}
 
-			UpdateNotepad();
-			
+		void Clear()
+		{
+			if (checkBox1.Checked == true)
+			{
+				FullName.Text = "";
+				Address.Text = "";
+				Phone.Text = "";
+			}
 		}
 
 		private void button2_Click(object sender, EventArgs e)
 		{
-			if (contactList.SelectedItem !=null && contactList.Text != emptyList)
-			{
-				contactList.Items.RemoveAt(contactList.SelectedIndex);
-				allInfo.Remove(FullName.Text);
-				allInfo.Remove(Address.Text);
-				allInfo.Remove(Phone.Text);
-				UpdateNotepad();
-			}
-		}
-
-		private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-		{
-			if (contactList.SelectedItem != null && contactList.Text != emptyList)
-			{
-				FullName.Text = contactList.Text;
-				//Address.Text = allInfo[contactList.SelectedIndex + 1];
-				//Phone.Text = allInfo[contactList.SelectedIndex + 2];
-			}
-		}
-
-		private void CloseForm(object sender, FormClosingEventArgs e)
-		{
 			
+			Delete();
+			CountUpdate();
+			Clear();
 		}
 
-		private void UpdateNotepad()
+		void Delete()
 		{
-			StreamWriter writeFile = new StreamWriter(addressBook);
-			foreach(string write in allInfo)
-			{
-				if (!write.Contains(""))
-				{
-					writeFile.Write(write);
-					writeFile.WriteLine();
-				}
-			}
-			writeFile.Close();
-		}
-
-		private void ReadTxt()
-		{
-			StreamReader readFile = new StreamReader(addressBook);
-
 			try
 			{
-				while ((line = readFile.ReadLine()) != null)
-				{
-					allInfo.Add(line);
-				}
-			}
+				ContactListWindow.Items.Remove(ContactListWindow.SelectedItems[0]);
+				contactsList.RemoveAt(ContactListWindow.SelectedItems[0].Index);
 
-			finally
-			{
-				readFile.Close();
 			}
+			catch
+			{ 
 
-			for (int i = 0; i < allInfo.Count; i += 3)
-			{
-				addListItem(allInfo[i]);
 			}
+		}
+
+		void CountUpdate()
+		{
+			label6.Visible = true;
+			label6.Text = Convert.ToString(ContactListWindow.Items.Count);
+			this.Update();
+		}
+		
+
+		private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (ContactListWindow.SelectedItems.Count == 0) return;		// Naprawilo blad z brakiem na liscie
+			FullName.Text = contactsList[ContactListWindow.SelectedItems[0].Index].FullName;
+			Address.Text = contactsList[ContactListWindow.SelectedItems[0].Index].Address;
+			Phone.Text = contactsList[ContactListWindow.SelectedItems[0].Index].PhoneNumber;
+
+		}
+
+		private void button3_Click(object sender, EventArgs e)
+		{
+			contactsList[ContactListWindow.SelectedItems[0].Index].FullName = FullName.Text;
+			contactsList[ContactListWindow.SelectedItems[0].Index].Address = Address.Text;
+			contactsList[ContactListWindow.SelectedItems[0].Index].PhoneNumber = Phone.Text;
+			ContactListWindow.SelectedItems[0].Text = FullName.Text;
+		}
+
+		private void Address_Book_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			//XmlDocument xDoc = new XmlDocument();
+			//string pathFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+			//xDoc.Load(pathFolder + "\\Address Book Data\\DataBase.xml");
+
 		}
 	}
 }

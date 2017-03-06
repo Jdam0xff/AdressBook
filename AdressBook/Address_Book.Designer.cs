@@ -30,6 +30,7 @@
 		{
 			this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.Phone = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
 			this.Address = new System.Windows.Forms.TextBox();
@@ -39,9 +40,12 @@
 			this.button2 = new System.Windows.Forms.Button();
 			this.button1 = new System.Windows.Forms.Button();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this.contactList = new System.Windows.Forms.ListBox();
+			this.label6 = new System.Windows.Forms.Label();
+			this.label5 = new System.Windows.Forms.Label();
+			this.ContactListWindow = new System.Windows.Forms.ListView();
 			this.label3 = new System.Windows.Forms.Label();
 			this.Find = new System.Windows.Forms.TextBox();
+			this.button3 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -54,6 +58,8 @@
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.button3);
+			this.groupBox1.Controls.Add(this.checkBox1);
 			this.groupBox1.Controls.Add(this.Phone);
 			this.groupBox1.Controls.Add(this.label4);
 			this.groupBox1.Controls.Add(this.Address);
@@ -69,9 +75,21 @@
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Info";
 			// 
+			// checkBox1
+			// 
+			this.checkBox1.AutoSize = true;
+			this.checkBox1.Checked = true;
+			this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.checkBox1.Location = new System.Drawing.Point(216, 0);
+			this.checkBox1.Name = "checkBox1";
+			this.checkBox1.Size = new System.Drawing.Size(50, 17);
+			this.checkBox1.TabIndex = 8;
+			this.checkBox1.Text = "Clear";
+			this.checkBox1.UseVisualStyleBackColor = true;
+			// 
 			// Phone
 			// 
-			this.Phone.Location = new System.Drawing.Point(81, 75);
+			this.Phone.Location = new System.Drawing.Point(95, 71);
 			this.Phone.Name = "Phone";
 			this.Phone.Size = new System.Drawing.Size(171, 20);
 			this.Phone.TabIndex = 7;
@@ -80,15 +98,15 @@
 			// label4
 			// 
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(34, 78);
+			this.label4.Location = new System.Drawing.Point(14, 74);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(41, 13);
+			this.label4.Size = new System.Drawing.Size(81, 13);
 			this.label4.TabIndex = 6;
-			this.label4.Text = "Phone:";
+			this.label4.Text = "Phone Number:";
 			// 
 			// Address
 			// 
-			this.Address.Location = new System.Drawing.Point(81, 50);
+			this.Address.Location = new System.Drawing.Point(95, 46);
 			this.Address.Name = "Address";
 			this.Address.Size = new System.Drawing.Size(171, 20);
 			this.Address.TabIndex = 5;
@@ -96,7 +114,7 @@
 			// 
 			// FullName
 			// 
-			this.FullName.Location = new System.Drawing.Point(81, 24);
+			this.FullName.Location = new System.Drawing.Point(95, 20);
 			this.FullName.Name = "FullName";
 			this.FullName.Size = new System.Drawing.Size(171, 20);
 			this.FullName.TabIndex = 4;
@@ -106,7 +124,7 @@
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(27, 53);
+			this.label2.Location = new System.Drawing.Point(47, 49);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(48, 13);
 			this.label2.TabIndex = 3;
@@ -115,7 +133,7 @@
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(18, 27);
+			this.label1.Location = new System.Drawing.Point(38, 23);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(57, 13);
 			this.label1.TabIndex = 2;
@@ -123,7 +141,7 @@
 			// 
 			// button2
 			// 
-			this.button2.Location = new System.Drawing.Point(177, 101);
+			this.button2.Location = new System.Drawing.Point(191, 97);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(75, 23);
 			this.button2.TabIndex = 1;
@@ -133,9 +151,9 @@
 			// 
 			// button1
 			// 
-			this.button1.Location = new System.Drawing.Point(81, 101);
+			this.button1.Location = new System.Drawing.Point(95, 97);
 			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(75, 23);
+			this.button1.Size = new System.Drawing.Size(41, 23);
 			this.button1.TabIndex = 0;
 			this.button1.Text = "Add";
 			this.button1.UseVisualStyleBackColor = true;
@@ -143,7 +161,9 @@
 			// 
 			// groupBox2
 			// 
-			this.groupBox2.Controls.Add(this.contactList);
+			this.groupBox2.Controls.Add(this.label6);
+			this.groupBox2.Controls.Add(this.label5);
+			this.groupBox2.Controls.Add(this.ContactListWindow);
 			this.groupBox2.Controls.Add(this.label3);
 			this.groupBox2.Controls.Add(this.Find);
 			this.groupBox2.Location = new System.Drawing.Point(290, 12);
@@ -153,14 +173,32 @@
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Contact";
 			// 
-			// contactList
+			// label6
 			// 
-			this.contactList.FormattingEnabled = true;
-			this.contactList.Location = new System.Drawing.Point(69, 55);
-			this.contactList.Name = "contactList";
-			this.contactList.Size = new System.Drawing.Size(164, 69);
-			this.contactList.TabIndex = 7;
-			this.contactList.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+			this.label6.AutoSize = true;
+			this.label6.Location = new System.Drawing.Point(33, 78);
+			this.label6.Name = "label6";
+			this.label6.Size = new System.Drawing.Size(13, 13);
+			this.label6.TabIndex = 9;
+			this.label6.Text = "0";
+			this.label6.Visible = false;
+			// 
+			// label5
+			// 
+			this.label5.Location = new System.Drawing.Point(0, 0);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(100, 23);
+			this.label5.TabIndex = 0;
+			// 
+			// ContactListWindow
+			// 
+			this.ContactListWindow.Location = new System.Drawing.Point(69, 54);
+			this.ContactListWindow.Name = "ContactListWindow";
+			this.ContactListWindow.Size = new System.Drawing.Size(164, 74);
+			this.ContactListWindow.TabIndex = 8;
+			this.ContactListWindow.UseCompatibleStateImageBehavior = false;
+			this.ContactListWindow.View = System.Windows.Forms.View.List;
+			this.ContactListWindow.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
 			// 
 			// label3
 			// 
@@ -179,6 +217,16 @@
 			this.Find.TabIndex = 6;
 			this.Find.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
 			// 
+			// button3
+			// 
+			this.button3.Location = new System.Drawing.Point(142, 97);
+			this.button3.Name = "button3";
+			this.button3.Size = new System.Drawing.Size(41, 23);
+			this.button3.TabIndex = 9;
+			this.button3.Text = "Edit";
+			this.button3.UseVisualStyleBackColor = true;
+			this.button3.Click += new System.EventHandler(this.button3_Click);
+			// 
 			// Address_Book
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -190,7 +238,7 @@
 			this.MaximizeBox = false;
 			this.Name = "Address_Book";
 			this.Text = "Adress Book";
-			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CloseForm);
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Address_Book_FormClosing);
 			this.Load += new System.EventHandler(this.Address_Book_Load);
 			((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
 			this.groupBox1.ResumeLayout(false);
@@ -214,9 +262,13 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Button button2;
 		private System.Windows.Forms.Button button1;
-		private System.Windows.Forms.ListBox contactList;
 		private System.Windows.Forms.TextBox Phone;
 		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.CheckBox checkBox1;
+		private System.Windows.Forms.ListView ContactListWindow;
+		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.Label label6;
+		private System.Windows.Forms.Button button3;
 	}
 }
 
