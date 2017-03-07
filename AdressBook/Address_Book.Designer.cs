@@ -30,6 +30,7 @@
 		{
 			this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.button3 = new System.Windows.Forms.Button();
 			this.checkBox1 = new System.Windows.Forms.CheckBox();
 			this.Phone = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
@@ -41,11 +42,10 @@
 			this.button1 = new System.Windows.Forms.Button();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.label6 = new System.Windows.Forms.Label();
-			this.label5 = new System.Windows.Forms.Label();
 			this.ContactListWindow = new System.Windows.Forms.ListView();
+			this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.label3 = new System.Windows.Forms.Label();
 			this.Find = new System.Windows.Forms.TextBox();
-			this.button3 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -74,6 +74,16 @@
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Info";
+			// 
+			// button3
+			// 
+			this.button3.Location = new System.Drawing.Point(142, 97);
+			this.button3.Name = "button3";
+			this.button3.Size = new System.Drawing.Size(41, 23);
+			this.button3.TabIndex = 9;
+			this.button3.Text = "Edit";
+			this.button3.UseVisualStyleBackColor = true;
+			this.button3.Click += new System.EventHandler(this.button3_Click);
 			// 
 			// checkBox1
 			// 
@@ -162,7 +172,6 @@
 			// groupBox2
 			// 
 			this.groupBox2.Controls.Add(this.label6);
-			this.groupBox2.Controls.Add(this.label5);
 			this.groupBox2.Controls.Add(this.ContactListWindow);
 			this.groupBox2.Controls.Add(this.label3);
 			this.groupBox2.Controls.Add(this.Find);
@@ -176,23 +185,18 @@
 			// label6
 			// 
 			this.label6.AutoSize = true;
-			this.label6.Location = new System.Drawing.Point(33, 78);
+			this.label6.Location = new System.Drawing.Point(30, 70);
 			this.label6.Name = "label6";
 			this.label6.Size = new System.Drawing.Size(13, 13);
 			this.label6.TabIndex = 9;
 			this.label6.Text = "0";
 			this.label6.Visible = false;
 			// 
-			// label5
-			// 
-			this.label5.Location = new System.Drawing.Point(0, 0);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(100, 23);
-			this.label5.TabIndex = 0;
-			// 
 			// ContactListWindow
 			// 
-			this.ContactListWindow.Location = new System.Drawing.Point(69, 54);
+			this.ContactListWindow.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1});
+			this.ContactListWindow.Location = new System.Drawing.Point(66, 46);
 			this.ContactListWindow.Name = "ContactListWindow";
 			this.ContactListWindow.Size = new System.Drawing.Size(164, 74);
 			this.ContactListWindow.TabIndex = 8;
@@ -200,10 +204,14 @@
 			this.ContactListWindow.View = System.Windows.Forms.View.List;
 			this.ContactListWindow.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
 			// 
+			// columnHeader1
+			// 
+			this.columnHeader1.Text = "Name";
+			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(33, 31);
+			this.label3.Location = new System.Drawing.Point(30, 23);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(30, 13);
 			this.label3.TabIndex = 6;
@@ -211,21 +219,11 @@
 			// 
 			// Find
 			// 
-			this.Find.Location = new System.Drawing.Point(69, 28);
+			this.Find.Location = new System.Drawing.Point(66, 20);
 			this.Find.Name = "Find";
 			this.Find.Size = new System.Drawing.Size(164, 20);
 			this.Find.TabIndex = 6;
 			this.Find.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
-			// 
-			// button3
-			// 
-			this.button3.Location = new System.Drawing.Point(142, 97);
-			this.button3.Name = "button3";
-			this.button3.Size = new System.Drawing.Size(41, 23);
-			this.button3.TabIndex = 9;
-			this.button3.Text = "Edit";
-			this.button3.UseVisualStyleBackColor = true;
-			this.button3.Click += new System.EventHandler(this.button3_Click);
 			// 
 			// Address_Book
 			// 
@@ -266,9 +264,9 @@
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.CheckBox checkBox1;
 		private System.Windows.Forms.ListView ContactListWindow;
-		private System.Windows.Forms.Label label5;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Button button3;
+		private System.Windows.Forms.ColumnHeader columnHeader1;
 	}
 }
 

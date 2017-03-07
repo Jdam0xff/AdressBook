@@ -27,13 +27,39 @@ namespace AdressBook
 
 		private void Address_Book_Load(object sender, EventArgs e)
 		{
+			#region VerticalList
+			ContactListWindow.View = View.Details;
+			ContactListWindow.HeaderStyle = ColumnHeaderStyle.None;
+			#endregion
+
+			#region CreatingFolderIn%appdata%
 			string pathFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 			if(!Directory.Exists(pathFolder + "\\Address Book Data"))
 				Directory.CreateDirectory(pathFolder + "\\Address Book Data");
-			if (!File.Exists(pathFolder + "\\Address Book Data\\DataBase.txt"))
+			#endregion
+
+			#region CreatingXml/Read
+			if (!File.Exists(pathFolder + "\\Address Book Data\\DataBase.xml"))
 			{
-				
+				XmlTextWriter xwrite = new XmlTextWriter(pathFolder + "\\Address Book Data\\DataBase.xml",Encoding.UTF8);
+				xwrite.WriteStartElement("ContactList");
+				xwrite.WriteEndElement();
+				xwrite.Close();
 			}
+
+			XmlDocument xDoc = new XmlDocument();
+			xDoc.Load(pathFolder + "\\Address Book Data\\DataBase.xml");
+			foreach(XmlNode xNode in xDoc.SelectNodes("AddressBook"))
+			{
+				Person per = new Person();
+				per.FullName = xNode.SelectSingleNode("FullName").InnerText;
+
+				// TO DO:end this
+			}
+				
+			#endregion
+
+
 		}
 
 		class Person
@@ -82,17 +108,20 @@ namespace AdressBook
 			per.FullName = FullName.Text;
 			per.Address = Address.Text;
 			per.PhoneNumber = Phone.Text;
-			if (FullName.Text == "")  per.FullName = "empty"; 
-			if(Address.Text == "") per.Address = "empty";
-			if (Phone.Text == "") per.PhoneNumber = "empty";
+			if (FullName.Text == "" || Phone.Text == "")
+			{
+				MessageBox.Show("Empty phone number and name!");
+			}
+			else
+			{
 
-			contactsList.Add(per);
+				contactsList.Add(per);
 
-			ContactListWindow.Items.Add(per.FullName);
-
-			// Czyszczenie po dodaniu
-			Clear();
-			CountUpdate();
+				ContactListWindow.Items.Add(per.FullName); 
+				// Czyszczenie po dodaniu
+				Clear();
+				CountUpdate();
+			}
 		}
 
 		void Clear()
@@ -154,10 +183,45 @@ namespace AdressBook
 
 		private void Address_Book_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			//XmlDocument xDoc = new XmlDocument();
-			//string pathFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-			//xDoc.Load(pathFolder + "\\Address Book Data\\DataBase.xml");
+			#region SaveToXml
 
+			string pathFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+			XmlDocument xDoc = new XmlDocument();
+			xDoc.Load(pathFolder + "\\Address Book Data\\DataBase.xml");
+
+			XmlNode xnode = xDoc.SelectSingleNode("ContactList");
+			//xnode.RemoveAll();
+
+			foreach(Person per in contactsList)
+			{
+				XmlNode xTitle = xDoc.CreateElement("ContactList");
+				XmlNode xFullName = xDoc.CreateElement("FullName");
+				XmlNode xAddress = xDoc.CreateElement("Address");
+				XmlNode xPhoneNumber = xDoc.CreateElement("PhoneNumber");
+
+				xFullName.InnerText = per.FullName;
+				xAddress.InnerText = per.Address;
+				xPhoneNumber.InnerText = per.PhoneNumber;
+
+				xTitle.AppendChild(xFullName);
+				xTitle.AppendChild(xAddress);
+				xTitle.AppendChild(xPhoneNumber);
+				xDoc.DocumentElement.AppendChild(xTitle);
+			}
+
+			xDoc.Save(pathFolder + "\\Address Book Data\\DataBase.xml");
+			#endregion
+
+			#region SaveToVCF
+			//var contactList = new Person() {};
+			//var vcf = new StringBuilder();
+
+			//vcf.Append("AddressBook:" + contactList.FullName + System.Environment.NewLine);
+			//vcf.Append("AddressBook:" + contactList.Address + System.Environment.NewLine);
+			//vcf.Append("AddressBook:" + contactList.PhoneNumber + System.Environment.NewLine);
+			//var filename = @"C:\mycontact.vcf";
+			//File.WriteAllText(filename, vcf.ToString());
+			#endregion
 		}
 	}
 }
