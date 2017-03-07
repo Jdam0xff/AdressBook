@@ -39,6 +39,7 @@ namespace AdressBook
 			#endregion
 
 			#region CreatingXml/Read
+
 			if (!File.Exists(pathFolder + "\\Address Book Data\\DataBase.xml"))
 			{
 				XmlTextWriter xwrite = new XmlTextWriter(pathFolder + "\\Address Book Data\\DataBase.xml",Encoding.UTF8);
@@ -49,17 +50,19 @@ namespace AdressBook
 
 			XmlDocument xDoc = new XmlDocument();
 			xDoc.Load(pathFolder + "\\Address Book Data\\DataBase.xml");
-			foreach(XmlNode xNode in xDoc.SelectNodes("AddressBook"))
+			foreach(XmlNode xNode in xDoc.SelectNodes("ContactList/Contact"))
 			{
 				Person per = new Person();
 				per.FullName = xNode.SelectSingleNode("FullName").InnerText;
-
-				// TO DO:end this
+				per.Address = xNode.SelectSingleNode("Address").InnerText;
+				per.PhoneNumber = xNode.SelectSingleNode("PhoneNumber").InnerText;
+				contactsList.Add(per);
+				ContactListWindow.Items.Add(per.FullName);
 			}
-				
+
 			#endregion
 
-
+			CountUpdate();
 		}
 
 		class Person
@@ -146,9 +149,9 @@ namespace AdressBook
 		{
 			try
 			{
-				ContactListWindow.Items.Remove(ContactListWindow.SelectedItems[0]);
+				
 				contactsList.RemoveAt(ContactListWindow.SelectedItems[0].Index);
-
+				ContactListWindow.Items.Remove(ContactListWindow.SelectedItems[0]);
 			}
 			catch
 			{ 
@@ -171,6 +174,7 @@ namespace AdressBook
 			Address.Text = contactsList[ContactListWindow.SelectedItems[0].Index].Address;
 			Phone.Text = contactsList[ContactListWindow.SelectedItems[0].Index].PhoneNumber;
 
+			Console.WriteLine("Tutaj");
 		}
 
 		private void button3_Click(object sender, EventArgs e)
@@ -190,11 +194,11 @@ namespace AdressBook
 			xDoc.Load(pathFolder + "\\Address Book Data\\DataBase.xml");
 
 			XmlNode xnode = xDoc.SelectSingleNode("ContactList");
-			//xnode.RemoveAll();
+			xnode.RemoveAll();
 
 			foreach(Person per in contactsList)
 			{
-				XmlNode xTitle = xDoc.CreateElement("ContactList");
+				XmlNode xTitle = xDoc.CreateElement("Contact");
 				XmlNode xFullName = xDoc.CreateElement("FullName");
 				XmlNode xAddress = xDoc.CreateElement("Address");
 				XmlNode xPhoneNumber = xDoc.CreateElement("PhoneNumber");
