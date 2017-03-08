@@ -18,6 +18,8 @@ namespace AdressBook
 
 		List<Person> contactsList = new List<Person>();
 		private int selected;
+		private int pValue;
+
 		#endregion
 
 		public Address_Book()
@@ -48,9 +50,32 @@ namespace AdressBook
 				xwrite.Close();
 			}
 
+			AddContact();
+			#endregion
+			Vis();
+			CountUpdate();
+		}
+
+		void Vis()
+		{
+			if (ContactListWindow.Items.Count != 0)
+			{
+				button2.Visible = true;
+				button4.Visible = true;
+			}
+			else
+			{
+				button2.Visible = false;
+				button4.Visible = false;
+			}
+		}
+
+		void AddContact()
+		{
+			string pathFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 			XmlDocument xDoc = new XmlDocument();
 			xDoc.Load(pathFolder + "\\Address Book Data\\DataBase.xml");
-			foreach(XmlNode xNode in xDoc.SelectNodes("ContactList/Contact"))
+			foreach (XmlNode xNode in xDoc.SelectNodes("ContactList/Contact"))
 			{
 				Person per = new Person();
 				per.FullName = xNode.SelectSingleNode("FullName").InnerText;
@@ -59,12 +84,7 @@ namespace AdressBook
 				contactsList.Add(per);
 				ContactListWindow.Items.Add(per.FullName);
 			}
-
-			#endregion
-
-			CountUpdate();
 		}
-
 		class Person
 		{
 			public string FullName
@@ -87,7 +107,7 @@ namespace AdressBook
 
 		private void textBox1_TextChanged(object sender, EventArgs e)
 		{
-			
+
 		}
 
 		private void textBox2_TextChanged(object sender, EventArgs e)
@@ -106,6 +126,7 @@ namespace AdressBook
 			//}
 
 			//ContactListWindow.Items.Clear();
+
 			ContactListWindow.SelectedItems.Clear();
 			for (int i = 0; i < ContactListWindow.Items.Count; i++)
 			{
@@ -117,6 +138,7 @@ namespace AdressBook
 					ContactListWindow.Items[i].ForeColor = Color.Red;
 					ContactListWindow.Items[i].Selected = true;
 				}
+
 				if (Find.Text == "")
 				{
 					ContactListWindow.Items[i].ForeColor = Color.Black;
@@ -138,18 +160,26 @@ namespace AdressBook
 			per.FullName = FullName.Text;
 			per.Address = Address.Text;
 			per.PhoneNumber = Phone.Text;
+
 			if (FullName.Text == "" || Phone.Text == "")
 			{
-				MessageBox.Show("Empty phone number and name!");
+				MessageBox.Show("Empty phone number or name!");
 			}
 			else
 			{
+				if (!int.TryParse(Phone.Text, out pValue))
+				{
+					MessageBox.Show("Number only field!", "Phone Number");
+					return;
+				}
 				contactsList.Add(per);
 
-				ContactListWindow.Items.Add(per.FullName); 
+				ContactListWindow.Items.Add(per.FullName);
+				Vis();
 				// Czyszczenie po dodaniu
 				Clear();
 				CountUpdate();
+				Vis();
 			}
 		}
 
@@ -169,6 +199,7 @@ namespace AdressBook
 			Delete();
 			CountUpdate();
 			Clear();
+			Vis();
 		}
 
 		void Delete()
@@ -181,7 +212,6 @@ namespace AdressBook
 			}
 			catch
 			{ 
-
 			}
 		}
 
@@ -252,6 +282,23 @@ namespace AdressBook
 			//var filename = @"C:\mycontact.vcf";
 			//File.WriteAllText(filename, vcf.ToString());
 			#endregion
+		}
+
+		private void button4_Click(object sender, EventArgs e)
+		{
+			DialogResult dialogResult = MessageBox.Show("Are you sure?", "Delete all", MessageBoxButtons.YesNo);
+			if (dialogResult == DialogResult.Yes)
+			{
+				//do something
+				ContactListWindow.Clear();
+				CountUpdate();
+				contactsList.Clear();
+				Vis();
+			}
+			else if (dialogResult == DialogResult.No)
+			{
+				//do something else
+			}
 		}
 	}
 }

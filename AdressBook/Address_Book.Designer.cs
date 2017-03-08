@@ -42,10 +42,11 @@
 			this.button1 = new System.Windows.Forms.Button();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.label6 = new System.Windows.Forms.Label();
+			this.ContactListWindow = new System.Windows.Forms.ListView();
+			this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.label3 = new System.Windows.Forms.Label();
 			this.Find = new System.Windows.Forms.TextBox();
-			this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.ContactListWindow = new System.Windows.Forms.ListView();
+			this.button4 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -157,6 +158,7 @@
 			this.button2.TabIndex = 1;
 			this.button2.Text = "Delete";
 			this.button2.UseVisualStyleBackColor = true;
+			this.button2.Visible = false;
 			this.button2.Click += new System.EventHandler(this.button2_Click);
 			// 
 			// button1
@@ -171,6 +173,7 @@
 			// 
 			// groupBox2
 			// 
+			this.groupBox2.Controls.Add(this.button4);
 			this.groupBox2.Controls.Add(this.label6);
 			this.groupBox2.Controls.Add(this.ContactListWindow);
 			this.groupBox2.Controls.Add(this.label3);
@@ -192,6 +195,23 @@
 			this.label6.Text = "0";
 			this.label6.Visible = false;
 			// 
+			// ContactListWindow
+			// 
+			this.ContactListWindow.AllowColumnReorder = true;
+			this.ContactListWindow.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader2});
+			this.ContactListWindow.Location = new System.Drawing.Point(66, 46);
+			this.ContactListWindow.Name = "ContactListWindow";
+			this.ContactListWindow.Size = new System.Drawing.Size(164, 74);
+			this.ContactListWindow.TabIndex = 8;
+			this.ContactListWindow.UseCompatibleStateImageBehavior = false;
+			this.ContactListWindow.View = System.Windows.Forms.View.List;
+			this.ContactListWindow.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+			// 
+			// columnHeader2
+			// 
+			this.columnHeader2.Text = "Full Name";
+			// 
 			// label3
 			// 
 			this.label3.AutoSize = true;
@@ -209,22 +229,16 @@
 			this.Find.TabIndex = 6;
 			this.Find.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
 			// 
-			// columnHeader2
+			// button4
 			// 
-			this.columnHeader2.Text = "Full Name";
-			// 
-			// ContactListWindow
-			// 
-			this.ContactListWindow.AllowColumnReorder = true;
-			this.ContactListWindow.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader2});
-			this.ContactListWindow.Location = new System.Drawing.Point(66, 46);
-			this.ContactListWindow.Name = "ContactListWindow";
-			this.ContactListWindow.Size = new System.Drawing.Size(164, 74);
-			this.ContactListWindow.TabIndex = 8;
-			this.ContactListWindow.UseCompatibleStateImageBehavior = false;
-			this.ContactListWindow.View = System.Windows.Forms.View.List;
-			this.ContactListWindow.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+			this.button4.Location = new System.Drawing.Point(6, 97);
+			this.button4.Name = "button4";
+			this.button4.Size = new System.Drawing.Size(57, 23);
+			this.button4.TabIndex = 10;
+			this.button4.Text = "DelAll";
+			this.button4.UseVisualStyleBackColor = true;
+			this.button4.Visible = false;
+			this.button4.Click += new System.EventHandler(this.button4_Click);
 			// 
 			// Address_Book
 			// 
@@ -268,6 +282,7 @@
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.ListView ContactListWindow;
 		private System.Windows.Forms.ColumnHeader columnHeader2;
+		private System.Windows.Forms.Button button4;
 	}
 }
 
