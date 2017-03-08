@@ -12,17 +12,18 @@ using System.Xml;
 
 namespace AdressBook
 {
-	public partial class Address_Book : Form
+	public partial class Prometeusz : Form
 	{
 		#region Veriables
 
 		List<Person> contactsList = new List<Person>();
+
 		private int selected;
 		private int pValue;
 
 		#endregion
 
-		public Address_Book()
+		public Prometeusz()
 		{
 				InitializeComponent();
 		}
@@ -52,6 +53,7 @@ namespace AdressBook
 
 			AddContact();
 			#endregion
+
 			Vis();
 			CountUpdate();
 		}
@@ -85,6 +87,9 @@ namespace AdressBook
 				ContactListWindow.Items.Add(per.FullName);
 			}
 		}
+
+
+
 		class Person
 		{
 			public string FullName
@@ -117,19 +122,9 @@ namespace AdressBook
 		
 		private void textBox3_TextChanged(object sender, EventArgs e)
 		{
-
-			//dView.RowFilter = string.Format('%{0}%', Find.Text);
-			//ContactListWindow.Items.Clear();
-			//foreach (Person per in contactsList)
-			//{
-			//	ContactListWindow.Items.Add(new ListViewItem(new string[] { per.FullName.ToString() }));
-			//}
-
-			//ContactListWindow.Items.Clear();
-
 			ContactListWindow.SelectedItems.Clear();
 			for (int i = 0; i < ContactListWindow.Items.Count; i++)
-			{
+			{ 
 
 				ContactListWindow.Items[i].ForeColor = Color.Black;
 				if (ContactListWindow.Items[i].ToString().ToLower().Contains(Find.Text.ToLower()))
@@ -137,9 +132,10 @@ namespace AdressBook
 					selected++;
 					ContactListWindow.Items[i].ForeColor = Color.Red;
 					ContactListWindow.Items[i].Selected = true;
+
 				}
 
-				if (Find.Text == "")
+				if (string.IsNullOrWhiteSpace(Find.Text))
 				{
 					ContactListWindow.Items[i].ForeColor = Color.Black;
 				}
@@ -147,6 +143,14 @@ namespace AdressBook
 			label6.Text = Convert.ToString(selected + "/" + ContactListWindow.Items.Count);
 			this.Update();
 			selected = 0;
+
+			ListViewItem foundItem =
+	ContactListWindow.FindItemWithText(Find.Text, false, 0, true);
+			if (foundItem != null)
+			{
+				ContactListWindow.TopItem = foundItem;
+			}
+
 		}
 		
 		private void textBox4_TextChanged(object sender, EventArgs e)
@@ -161,7 +165,7 @@ namespace AdressBook
 			per.Address = Address.Text;
 			per.PhoneNumber = Phone.Text;
 
-			if (FullName.Text == "" || Phone.Text == "")
+			if (string.IsNullOrWhiteSpace(FullName.Text) || Phone.Text == "")
 			{
 				MessageBox.Show("Empty phone number or name!");
 			}
@@ -176,7 +180,6 @@ namespace AdressBook
 
 				ContactListWindow.Items.Add(per.FullName);
 				Vis();
-				// Czyszczenie po dodaniu
 				Clear();
 				CountUpdate();
 				Vis();
@@ -229,8 +232,6 @@ namespace AdressBook
 			FullName.Text = contactsList[ContactListWindow.SelectedItems[0].Index].FullName;
 			Address.Text = contactsList[ContactListWindow.SelectedItems[0].Index].Address;
 			Phone.Text = contactsList[ContactListWindow.SelectedItems[0].Index].PhoneNumber;
-
-			Console.WriteLine("Tutaj");
 		}
 
 		private void button3_Click(object sender, EventArgs e)
@@ -267,19 +268,27 @@ namespace AdressBook
 				xTitle.AppendChild(xAddress);
 				xTitle.AppendChild(xPhoneNumber);
 				xDoc.DocumentElement.AppendChild(xTitle);
+
 			}
 
 			xDoc.Save(pathFolder + "\\Address Book Data\\DataBase.xml");
 			#endregion
 
 			#region SaveToVCF
-			//var contactList = new Person() {};
+			
+			//Person contact = new Person();
 			//var vcf = new StringBuilder();
-
-			//vcf.Append("AddressBook:" + contactList.FullName + System.Environment.NewLine);
-			//vcf.Append("AddressBook:" + contactList.Address + System.Environment.NewLine);
-			//vcf.Append("AddressBook:" + contactList.PhoneNumber + System.Environment.NewLine);
-			//var filename = @"C:\mycontact.vcf";
+			//foreach (Person per in contactsList)
+			//{
+			//	vcf.Append("BEGIN:VCARD" + System.Environment.NewLine);
+			//	vcf.Append("FN:" + FullName.Text);
+			//	vcf.Append(System.Environment.NewLine);
+			//	vcf.Append("ADR;WORK;PREF;ENCODING=QUOTED-PRINTABLE:" + Address.Text + System.Environment.NewLine);
+			//	vcf.Append("TEL;CELL:" + Phone.Text + System.Environment.NewLine);
+			//	vcf.Append("VERSION: 2.1" + System.Environment.NewLine);
+			//	vcf.Append("END:VCARD" + System.Environment.NewLine);
+			//}
+			//var filename = "mycontact.vcf";
 			//File.WriteAllText(filename, vcf.ToString());
 			#endregion
 		}
@@ -290,7 +299,8 @@ namespace AdressBook
 			if (dialogResult == DialogResult.Yes)
 			{
 				//do something
-				ContactListWindow.Clear();
+				//ContactListWindow.Clear(); <- nie może byc bo po usunieciu nie widac kontaktow przy dodawaniu w listview
+				ContactListWindow.Items.Clear();
 				CountUpdate();
 				contactsList.Clear();
 				Vis();

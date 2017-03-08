@@ -16,7 +16,7 @@ namespace AdressBook
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new Address_Book());
+			Application.Run(new Prometeusz());
 		}
 	}
 }

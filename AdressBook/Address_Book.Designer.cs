@@ -1,6 +1,6 @@
 ﻿namespace AdressBook
 {
-	partial class Address_Book
+	partial class Prometeusz
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Prometeusz));
 			this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
 			this.button3 = new System.Windows.Forms.Button();
@@ -41,12 +42,12 @@
 			this.button2 = new System.Windows.Forms.Button();
 			this.button1 = new System.Windows.Forms.Button();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.button4 = new System.Windows.Forms.Button();
 			this.label6 = new System.Windows.Forms.Label();
 			this.ContactListWindow = new System.Windows.Forms.ListView();
 			this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.label3 = new System.Windows.Forms.Label();
 			this.Find = new System.Windows.Forms.TextBox();
-			this.button4 = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -183,7 +184,18 @@
 			this.groupBox2.Size = new System.Drawing.Size(268, 134);
 			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
-			this.groupBox2.Text = " ";
+			this.groupBox2.Text = " List";
+			// 
+			// button4
+			// 
+			this.button4.Location = new System.Drawing.Point(6, 97);
+			this.button4.Name = "button4";
+			this.button4.Size = new System.Drawing.Size(57, 23);
+			this.button4.TabIndex = 10;
+			this.button4.Text = "DelAll";
+			this.button4.UseVisualStyleBackColor = true;
+			this.button4.Visible = false;
+			this.button4.Click += new System.EventHandler(this.button4_Click);
 			// 
 			// label6
 			// 
@@ -229,18 +241,7 @@
 			this.Find.TabIndex = 6;
 			this.Find.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
 			// 
-			// button4
-			// 
-			this.button4.Location = new System.Drawing.Point(6, 97);
-			this.button4.Name = "button4";
-			this.button4.Size = new System.Drawing.Size(57, 23);
-			this.button4.TabIndex = 10;
-			this.button4.Text = "DelAll";
-			this.button4.UseVisualStyleBackColor = true;
-			this.button4.Visible = false;
-			this.button4.Click += new System.EventHandler(this.button4_Click);
-			// 
-			// Address_Book
+			// Prometeusz
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -248,8 +249,9 @@
 			this.Controls.Add(this.groupBox2);
 			this.Controls.Add(this.groupBox1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MaximizeBox = false;
-			this.Name = "Address_Book";
+			this.Name = "Prometeusz";
 			this.Text = "Adress Book";
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Address_Book_FormClosing);
 			this.Load += new System.EventHandler(this.Address_Book_Load);
