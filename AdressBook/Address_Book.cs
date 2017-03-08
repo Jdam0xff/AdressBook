@@ -17,7 +17,7 @@ namespace AdressBook
 		#region Veriables
 
 		List<Person> contactsList = new List<Person>();
-
+		private int selected;
 		#endregion
 
 		public Address_Book()
@@ -29,7 +29,7 @@ namespace AdressBook
 		{
 			#region VerticalList
 			ContactListWindow.View = View.Details;
-			ContactListWindow.HeaderStyle = ColumnHeaderStyle.None;
+			ContactListWindow.HeaderStyle = ColumnHeaderStyle.None;  //or ContactListWindow.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 			#endregion
 
 			#region CreatingFolderIn%appdata%
@@ -94,12 +94,39 @@ namespace AdressBook
 		{
 
 		}
-
+		
 		private void textBox3_TextChanged(object sender, EventArgs e)
 		{
 
-		}
+			//dView.RowFilter = string.Format('%{0}%', Find.Text);
+			//ContactListWindow.Items.Clear();
+			//foreach (Person per in contactsList)
+			//{
+			//	ContactListWindow.Items.Add(new ListViewItem(new string[] { per.FullName.ToString() }));
+			//}
 
+			//ContactListWindow.Items.Clear();
+			ContactListWindow.SelectedItems.Clear();
+			for (int i = 0; i < ContactListWindow.Items.Count; i++)
+			{
+
+				ContactListWindow.Items[i].ForeColor = Color.Black;
+				if (ContactListWindow.Items[i].ToString().ToLower().Contains(Find.Text.ToLower()))
+				{
+					selected++;
+					ContactListWindow.Items[i].ForeColor = Color.Red;
+					ContactListWindow.Items[i].Selected = true;
+				}
+				if (Find.Text == "")
+				{
+					ContactListWindow.Items[i].ForeColor = Color.Black;
+				}
+			}
+			label6.Text = Convert.ToString(selected + "/" + ContactListWindow.Items.Count);
+			this.Update();
+			selected = 0;
+		}
+		
 		private void textBox4_TextChanged(object sender, EventArgs e)
 		{
 
@@ -117,7 +144,6 @@ namespace AdressBook
 			}
 			else
 			{
-
 				contactsList.Add(per);
 
 				ContactListWindow.Items.Add(per.FullName); 

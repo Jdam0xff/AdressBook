@@ -42,10 +42,10 @@
 			this.button1 = new System.Windows.Forms.Button();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
 			this.label6 = new System.Windows.Forms.Label();
-			this.ContactListWindow = new System.Windows.Forms.ListView();
-			this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.label3 = new System.Windows.Forms.Label();
 			this.Find = new System.Windows.Forms.TextBox();
+			this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.ContactListWindow = new System.Windows.Forms.ListView();
 			((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -180,7 +180,7 @@
 			this.groupBox2.Size = new System.Drawing.Size(268, 134);
 			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
-			this.groupBox2.Text = "Contact";
+			this.groupBox2.Text = " ";
 			// 
 			// label6
 			// 
@@ -191,22 +191,6 @@
 			this.label6.TabIndex = 9;
 			this.label6.Text = "0";
 			this.label6.Visible = false;
-			// 
-			// ContactListWindow
-			// 
-			this.ContactListWindow.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1});
-			this.ContactListWindow.Location = new System.Drawing.Point(66, 46);
-			this.ContactListWindow.Name = "ContactListWindow";
-			this.ContactListWindow.Size = new System.Drawing.Size(164, 74);
-			this.ContactListWindow.TabIndex = 8;
-			this.ContactListWindow.UseCompatibleStateImageBehavior = false;
-			this.ContactListWindow.View = System.Windows.Forms.View.List;
-			this.ContactListWindow.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
-			// 
-			// columnHeader1
-			// 
-			this.columnHeader1.Text = "Name";
 			// 
 			// label3
 			// 
@@ -224,6 +208,23 @@
 			this.Find.Size = new System.Drawing.Size(164, 20);
 			this.Find.TabIndex = 6;
 			this.Find.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
+			// 
+			// columnHeader2
+			// 
+			this.columnHeader2.Text = "Full Name";
+			// 
+			// ContactListWindow
+			// 
+			this.ContactListWindow.AllowColumnReorder = true;
+			this.ContactListWindow.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader2});
+			this.ContactListWindow.Location = new System.Drawing.Point(66, 46);
+			this.ContactListWindow.Name = "ContactListWindow";
+			this.ContactListWindow.Size = new System.Drawing.Size(164, 74);
+			this.ContactListWindow.TabIndex = 8;
+			this.ContactListWindow.UseCompatibleStateImageBehavior = false;
+			this.ContactListWindow.View = System.Windows.Forms.View.List;
+			this.ContactListWindow.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
 			// 
 			// Address_Book
 			// 
@@ -263,10 +264,10 @@
 		private System.Windows.Forms.TextBox Phone;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.CheckBox checkBox1;
-		private System.Windows.Forms.ListView ContactListWindow;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Button button3;
-		private System.Windows.Forms.ColumnHeader columnHeader1;
+		private System.Windows.Forms.ListView ContactListWindow;
+		private System.Windows.Forms.ColumnHeader columnHeader2;
 	}
 }
 
