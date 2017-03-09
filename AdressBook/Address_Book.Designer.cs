@@ -45,9 +45,9 @@
 			this.button4 = new System.Windows.Forms.Button();
 			this.label6 = new System.Windows.Forms.Label();
 			this.ContactListWindow = new System.Windows.Forms.ListView();
-			this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.label3 = new System.Windows.Forms.Label();
 			this.Find = new System.Windows.Forms.TextBox();
+			this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
@@ -211,18 +211,15 @@
 			// 
 			this.ContactListWindow.AllowColumnReorder = true;
 			this.ContactListWindow.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader2});
+            this.columnHeader1});
 			this.ContactListWindow.Location = new System.Drawing.Point(66, 46);
+			this.ContactListWindow.Margin = new System.Windows.Forms.Padding(5);
 			this.ContactListWindow.Name = "ContactListWindow";
 			this.ContactListWindow.Size = new System.Drawing.Size(164, 74);
 			this.ContactListWindow.TabIndex = 8;
 			this.ContactListWindow.UseCompatibleStateImageBehavior = false;
 			this.ContactListWindow.View = System.Windows.Forms.View.List;
 			this.ContactListWindow.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
-			// 
-			// columnHeader2
-			// 
-			this.columnHeader2.Text = "Full Name";
 			// 
 			// label3
 			// 
@@ -240,6 +237,10 @@
 			this.Find.Size = new System.Drawing.Size(164, 20);
 			this.Find.TabIndex = 6;
 			this.Find.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
+			// 
+			// columnHeader1
+			// 
+			this.columnHeader1.Width = 140;
 			// 
 			// Prometeusz
 			// 
@@ -283,8 +284,8 @@
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.ListView ContactListWindow;
-		private System.Windows.Forms.ColumnHeader columnHeader2;
 		private System.Windows.Forms.Button button4;
+		private System.Windows.Forms.ColumnHeader columnHeader1;
 	}
 }
 

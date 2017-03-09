@@ -275,21 +275,30 @@ namespace AdressBook
 			#endregion
 
 			#region SaveToVCF
-			
-			//Person contact = new Person();
-			//var vcf = new StringBuilder();
-			//foreach (Person per in contactsList)
-			//{
-			//	vcf.Append("BEGIN:VCARD" + System.Environment.NewLine);
-			//	vcf.Append("FN:" + FullName.Text);
-			//	vcf.Append(System.Environment.NewLine);
-			//	vcf.Append("ADR;WORK;PREF;ENCODING=QUOTED-PRINTABLE:" + Address.Text + System.Environment.NewLine);
-			//	vcf.Append("TEL;CELL:" + Phone.Text + System.Environment.NewLine);
-			//	vcf.Append("VERSION: 2.1" + System.Environment.NewLine);
-			//	vcf.Append("END:VCARD" + System.Environment.NewLine);
-			//}
-			//var filename = "mycontact.vcf";
-			//File.WriteAllText(filename, vcf.ToString());
+
+			StringBuilder vcf = new StringBuilder();
+
+			foreach (Person per in contactsList)
+			{
+				string N = string.Join(" ", per.FullName.Split(' ').Reverse());
+				vcf.Append("BEGIN:VCARD" + System.Environment.NewLine);
+				vcf.Append("VERSION:2.1" + System.Environment.NewLine);
+				vcf.Append("N:" + N.Replace(" ", ";") + ";" + System.Environment.NewLine);
+				vcf.Append("FN:" + per.FullName + System.Environment.NewLine);
+				vcf.Append("TEL;CELL:" + per.PhoneNumber + System.Environment.NewLine);
+				vcf.Append("END:VCARD" + System.Environment.NewLine);
+			}
+			File.WriteAllText(pathFolder + "\\Address Book Data\\myContactsDataBase.vcf", vcf.ToString());
+
+			#region WhatINeed
+			//BEGIN:VCARD
+			//VERSION:2.1
+			//N:;Nazwa_kotaktu;;;
+			//FN:Nazwa_kotaktu
+			//TEL; CELL:Nr_tel
+			//END:VCARD
+			#endregion
+
 			#endregion
 		}
 
