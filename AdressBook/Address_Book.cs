@@ -64,11 +64,17 @@ namespace AdressBook
 			{
 				button2.Visible = true;
 				button4.Visible = true;
+				button3.Visible = true;
+				label3.Visible = true;
+				Find.Visible = true;
 			}
 			else
 			{
 				button2.Visible = false;
 				button4.Visible = false;
+				button3.Visible = false;
+				label3.Visible = false;
+				Find.Visible = false;
 			}
 		}
 
