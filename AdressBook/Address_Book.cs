@@ -242,10 +242,22 @@ namespace AdressBook
 
 		private void button3_Click(object sender, EventArgs e)
 		{
-			contactsList[ContactListWindow.SelectedItems[0].Index].FullName = FullName.Text;
-			contactsList[ContactListWindow.SelectedItems[0].Index].Address = Address.Text;
-			contactsList[ContactListWindow.SelectedItems[0].Index].PhoneNumber = Phone.Text;
-			ContactListWindow.SelectedItems[0].Text = FullName.Text;
+			if (string.IsNullOrWhiteSpace(FullName.Text) || Phone.Text == "")
+			{
+				MessageBox.Show("Empty phone number or name!");
+			}
+			else
+			{
+				if (!int.TryParse(Phone.Text, out pValue))
+				{
+					MessageBox.Show("Number only field!", "Phone Number");
+					return;
+				}
+				contactsList[ContactListWindow.SelectedItems[0].Index].FullName = FullName.Text;
+				contactsList[ContactListWindow.SelectedItems[0].Index].Address = Address.Text;
+				contactsList[ContactListWindow.SelectedItems[0].Index].PhoneNumber = Phone.Text;
+				ContactListWindow.SelectedItems[0].Text = FullName.Text;
+			}
 		}
 
 		private void Address_Book_FormClosing(object sender, FormClosingEventArgs e)
